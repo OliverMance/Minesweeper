@@ -7,7 +7,7 @@ public class Minefield {
     private int height;
     private int width;
     private int mineCount;
-    private List<List<Tile>> board;
+    private List<List<Tile>> field;
 
     public Minefield(String difficulty) {
         // set board attributes based on difficulty
@@ -26,20 +26,22 @@ public class Minefield {
             default:
                 break;
         }
+
+        intialise();
     }
 
     // method to generate a board of empty tiles
     public void intialise() {
 
         // define the board
-        this.board = new ArrayList<List<Tile>>();
+        this.field = new ArrayList<List<Tile>>();
 
         for (int i = 0; i < this.height; i++) {
             List<Tile> row = new ArrayList<Tile>();
             for(int j = 0; j < this.width; j++) {
                 row.add(new EmptyTile());
             }
-            this.board.add(row);
+            this.field.add(row);
         }
 
         addMines();
@@ -59,8 +61,8 @@ public class Minefield {
                 int x = rand.nextInt(this.width);
 
                 // check if tile is already a mine
-                if (this.board.get(y).get(x).getClass() != MineTile.class) {
-                    this.board.get(y).set(x, new MineTile());
+                if (this.field.get(y).get(x).getClass() != MineTile.class) {
+                    this.field.get(y).set(x, new MineTile());
 
                     // use this to debug mine locations
                     //this.board.get(y).get(x).toggleFlag();
@@ -73,23 +75,29 @@ public class Minefield {
 
     // method to display the current state of the Minefield board
     public void display() {
-
+        System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         // print column numbers
-        System.out.print("   ");
+        System.out.print("\n   ");
         for (int i = 0; i < this.width; i++) {
             System.out.print(i + "  ");
         }
         System.out.print("\n");
 
         // loop through rows
-        for (int i = 0; i < this.board.size(); i++) {
+        for (int i = 0; i < this.field.size(); i++) {
             // print row numbers
             System.out.print(i + " ");
             // display each Tile in row
-            for (Tile t : this.board.get(i)) {
+            for (Tile t : this.field.get(i)) {
                 t.display();
             }
             System.out.println("\n");
         }
     }
+
+    public int getHeight() { return height; }
+
+    public int getWidth() { return width; }
+
+    public List<List<Tile>> getField() { return field; }
 }

@@ -3,10 +3,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Minefield test = new Minefield("easy");
+        Game test = new Game();
 
-        test.intialise();
-
-        test.display();
+        while(true) {
+            test.inputMove();
+            test.processMove();
+        }
     }
 }
