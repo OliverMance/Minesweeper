@@ -1,14 +1,5 @@
 public class EmptyTile extends Tile {
 
-    // the ASCII character representing the Tile type
-    private final char icon;
-
-    // boolean to determine whether icon should be shown
-    private boolean visible;
-
-    // boolean to determine whether Tile is flagged
-    private boolean flagged;
-
     public EmptyTile() {
         this.icon = 'x';
         this.visible = false;
@@ -17,13 +8,18 @@ public class EmptyTile extends Tile {
 
     // method to process behaviour if Tile selected
     public void select() {
-        // check if Tile is flagged
-        if (this.flagged) {
-            System.out.println("This tile is flagged! Please remove the flag if you wish to select this tile!");
+        // check if tile is already visible
+        if (!this.visible) {
+            // check if Tile is flagged
+            if (this.flagged) {
+                System.out.println("\nThis tile is flagged! Please remove the flag if you wish to select this tile!");
+            } else {
+                // Empty tile scenario
+                // set icon to be visible
+                this.visible = true;
+            }
         } else {
-            // Empty tile scenario
-            // set icon to be visible
-            this.visible = true;
+            System.out.println("\nTile already cleared!");
         }
     }
 
@@ -38,4 +34,6 @@ public class EmptyTile extends Tile {
             System.out.print("[ ]");
         }
     }
+
+    public boolean isFlagged() { return flagged; }
 }
