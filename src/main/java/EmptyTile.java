@@ -9,12 +9,13 @@ public class EmptyTile extends Tile {
     int mineCount;
 
     public EmptyTile() {
-        this.icon = 'x';
+        this.icon = "x";
         this.visible = false;
         this.flagged = false;
     }
 
     // method to find the number of MineTiles in the Tile's neighbours
+    @Override
     public void countMines() {
         int count = 0;
         for (Tile n : this.neighbours) {
@@ -24,9 +25,11 @@ public class EmptyTile extends Tile {
         }
         // set attribute to the number of MineTiles found
         this.mineCount = count;
+        this.icon = String.valueOf(this.mineCount);
     }
 
     // method to process behaviour if Tile selected
+    @Override
     public void select() {
         // check if tile is already visible
         if (!this.visible) {
@@ -44,6 +47,7 @@ public class EmptyTile extends Tile {
     }
 
     // method to display the tile
+    @Override
     public void display() {
         // only display icon if visible
         if (this.visible) {
@@ -56,4 +60,7 @@ public class EmptyTile extends Tile {
     }
 
     public boolean isFlagged() { return flagged; }
+
+    @Override
+    public void setNeighbours(List<Tile> neighbours) { this.neighbours = neighbours; }
 }

@@ -1,12 +1,15 @@
+import java.util.List;
+
 public class MineTile extends Tile {
 
     public MineTile() {
-        this.icon = 'o';
+        this.icon = "o";
         this.visible = false;
         this.flagged = false;
     }
 
     // method to process behaviour if Tile selected
+    @Override
     public void select() {
         // check if Tile is flagged
         if (this.flagged) {
@@ -20,6 +23,7 @@ public class MineTile extends Tile {
     }
 
     // method to display the tile
+    @Override
     public void display() {
         // only display icon if visible
         if (this.visible) {
@@ -29,6 +33,11 @@ public class MineTile extends Tile {
         } else {
             System.out.print("[ ]");
         }
+    }
+
+    @Override
+    public void setNeighbours(List<Tile> neighbours) {
+        // do nothing for MineTile
     }
 
     public boolean isFlagged() { return flagged; }

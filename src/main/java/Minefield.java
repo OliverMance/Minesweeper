@@ -44,7 +44,9 @@ public class Minefield {
             this.field.add(row);
         }
 
+        // add mines to board and find neighbours
         addMines();
+        findNeighbours();
     }
 
     // helper method to add mine tiles when initalising board
@@ -68,6 +70,74 @@ public class Minefield {
                     //this.board.get(y).get(x).toggleFlag();
 
                     placed = true;
+                }
+            }
+        }
+    }
+
+    // method to find neighbour Tiles for each Tile
+    public void findNeighbours() {
+        // loop through field, processing each Tile
+        for (int i = 0; i < field.size(); i++) {
+            for (int j = 0; j < field.get(i).size(); j++) {
+                // only process Tile if non-MineTile
+                // set neighbours if non-mine Tile
+                if (field.get(i).get(j).getClass() != MineTile.class) {
+                    List<Tile> neighbours = new ArrayList<>();
+                    try {
+                        // add tiles in all adjacent directions
+                        // don't look for above tiles if tile on top row
+                        if (i != 0) {
+                            // don't look for left tiles if in first column
+                            if (j != 0) {
+                                // top left
+                                neighbours.add(field.get(i - 1).get(j - 1));
+                            }
+                            // top centre
+                            neighbours.add(field.get(i - 1).get(j));
+                            // don't look for right tiles if in last column
+                            if (j != (field.get(i).size() - 1)) {
+                                // top right
+                                neighbours.add(field.get(i - 1).get(j + 1));
+                            }
+                        }
+
+                        // don't look for below tiles if tile on bottom row
+                        if (i != (field.size() - 1)) {
+                            // don't look for left tiles if in first column
+                            if (j != 0) {
+                                // bottom left
+                                neighbours.add(field.get(i + 1).get(j - 1));
+                            }
+                            // bottom centre
+                            neighbours.add(field.get(i + 1).get(j));
+                            // don't look for right tiles if in last column
+                            if (j != (field.get(i).size() - 1)) {
+                                // bottom right
+                                neighbours.add(field.get(i + 1).get(j + 1));
+                            }
+                        }
+
+                        // don't look for left tiles if in first column
+                        if (j != 0) {
+                            // left
+                            neighbours.add(field.get(i).get(j - 1));
+                        }
+                        // don't look for right tiles if in last column
+                        if (j != (field.get(i).size() - 1)) {
+                            // right
+                            neighbours.add(field.get(i).get(j + 1));
+                        }
+
+                        // set the neighbours list for the Tile
+                        field.get(i).get(j).setNeighbours(neighbours);
+                        // count the number of mines adjacent to the Tile
+                        field.get(i).get(j).countMines();
+                        // handle non-index errors
+                    } catch (Exception e) {
+                        System.out.println("Encountered error: " + e);
+                        System.exit(0);
+                    }
                 }
             }
         }
