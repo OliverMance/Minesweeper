@@ -36,9 +36,9 @@ public class Minefield {
         // define the board
         this.field = new ArrayList<List<Tile>>();
 
-        for (int i = 0; i < this.height; i++) {
+        for (int y = 0; y < this.height; y++) {
             List<Tile> row = new ArrayList<Tile>();
-            for(int j = 0; j < this.width; j++) {
+            for(int x = 0; x < this.width; x++) {
                 row.add(new EmptyTile());
             }
             this.field.add(row);
@@ -135,9 +135,32 @@ public class Minefield {
                         field.get(i).get(j).countMines();
                         // handle non-index errors
                     } catch (Exception e) {
-                        System.out.println("Encountered error: " + e);
+                        System.out.println("Encountered error: " + e.getMessage());
                         System.exit(0);
                     }
+                }
+            }
+        }
+    }
+
+    // method to handle clearing of a Tile and/or floodfill clearing via recursion
+    public void clearTile(Tile t) {
+        // base case if Tile is a MineTile, flagged or already cleared
+        if (t.getClass() == MineTile.class || t.isFlagged() || t.isVisible()) {
+            t.select();
+            return;
+        }
+
+        // Reveal the current tile before recursion
+        t.select();
+
+        // only search neighbours if Tile has no adjacent mines
+        if (((EmptyTile) t).getAdjMineCount() == 0) {
+            for (Tile n : ((EmptyTile) t).getNeighbours()) {
+                // only process Tile if not already cleared (Check visibility before recursion)
+                if (!n.isVisible()) {
+                    // check/clear adjacent tile and its neighbours via recursion
+                    clearTile(n);
                 }
             }
         }

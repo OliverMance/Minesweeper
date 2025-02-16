@@ -1,6 +1,6 @@
 import java.util.List;
 
-abstract class Tile {
+public abstract class Tile {
 
     // the ASCII character representing the Tile type
     protected String icon;
@@ -36,4 +36,10 @@ abstract class Tile {
 
     // setter method for adding neighbours
     public abstract void setNeighbours(List<Tile> neighbours);
+
+    // return visibility status of the Tile
+    public boolean isVisible() { return visible; }
+
+    // return flagged status of the Tile
+    public boolean isFlagged() { return flagged; }
 }

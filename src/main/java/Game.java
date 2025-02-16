@@ -61,7 +61,7 @@ public class Game {
 
             switch (ans) {
                 case ("s"):
-                    this.board.getField().get(this.currentY).get(this.currentX).select();
+                    this.board.clearTile(this.board.getField().get(this.currentY).get(this.currentX));
                     valid = true;
                     break;
                 case ("f"):

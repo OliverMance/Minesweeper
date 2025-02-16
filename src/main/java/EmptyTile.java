@@ -3,13 +3,13 @@ import java.util.List;
 public class EmptyTile extends Tile {
 
     // List of neighbour Tiles
-    List<Tile> neighbours;
+    private List<Tile> neighbours;
 
     // the number of mines in the neighbour tiles
-    int mineCount;
+    private int adjMineCount;
 
     public EmptyTile() {
-        this.icon = "x";
+        this.icon = "e";
         this.visible = false;
         this.flagged = false;
     }
@@ -24,8 +24,8 @@ public class EmptyTile extends Tile {
             }
         }
         // set attribute to the number of MineTiles found
-        this.mineCount = count;
-        this.icon = String.valueOf(this.mineCount);
+        this.adjMineCount = count;
+        this.icon = String.valueOf(this.adjMineCount);
     }
 
     // method to process behaviour if Tile selected
@@ -38,7 +38,7 @@ public class EmptyTile extends Tile {
                 System.out.println("\nThis tile is flagged! Please remove the flag if you wish to select this tile!");
             } else {
                 // Empty tile scenario
-                // set icon to be visible
+                // set icon to be visible (cleared)
                 this.visible = true;
             }
         } else {
@@ -59,8 +59,10 @@ public class EmptyTile extends Tile {
         }
     }
 
-    public boolean isFlagged() { return flagged; }
-
     @Override
     public void setNeighbours(List<Tile> neighbours) { this.neighbours = neighbours; }
+
+    public List<Tile> getNeighbours() { return neighbours; }
+
+    public int getAdjMineCount() { return adjMineCount; }
 }
