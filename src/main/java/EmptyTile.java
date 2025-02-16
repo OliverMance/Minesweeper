@@ -1,9 +1,29 @@
+import java.util.List;
+
 public class EmptyTile extends Tile {
+
+    // List of neighbour Tiles
+    List<Tile> neighbours;
+
+    // the number of mines in the neighbour tiles
+    int mineCount;
 
     public EmptyTile() {
         this.icon = 'x';
         this.visible = false;
         this.flagged = false;
+    }
+
+    // method to find the number of MineTiles in the Tile's neighbours
+    public void countMines() {
+        int count = 0;
+        for (Tile n : this.neighbours) {
+            if (n.getClass() == MineTile.class) {
+                count++;
+            }
+        }
+        // set attribute to the number of MineTiles found
+        this.mineCount = count;
     }
 
     // method to process behaviour if Tile selected
