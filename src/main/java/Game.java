@@ -78,6 +78,9 @@ public class Game {
     public void playGame() {
         // counter for game moves
         int moveCounter = 0;
+        // game timer is started
+        int startTime = (int) System.currentTimeMillis();
+        int endTime = 0;
         // loop player moves until game has reached a finished state
         while (!this.gameOver) {
             // get user input and process their move
@@ -94,8 +97,11 @@ public class Game {
 
             // check for win condition
             if (board.fieldCleared()) {
+                // game is over and player has won
                 this.winCondition = true;
                 this.gameOver = true;
+                // get the time at the end of the game
+                endTime = (int) System.currentTimeMillis();
             }
         }
 
@@ -103,7 +109,7 @@ public class Game {
         if (this.winCondition) {
             this.board.display();
             System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.println("\nCongratulations, you won! It took you " + moveCounter + " turns.");
+            System.out.println("\nCongratulations, you won! It took you " + moveCounter + " turn(s) and " + ((endTime - startTime)/1000) + " second(s).");
         } else {
             this.board.display("L");
             System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
