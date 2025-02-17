@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The Minefield class contains the game board structure and contains methods for updating and checking its state
+ * @author Oliver Mance
+ */
 public class Minefield {
 
     private int height;
@@ -9,7 +13,10 @@ public class Minefield {
     private int mineCount;
     private List<List<Tile>> field;
 
-    // fixed difficulty constructor
+    /**
+     * The constructor for a Minefield utilising a pre-defined difficulty
+     * @param difficulty The string used to determine the Minefield attributes
+     */
     public Minefield(String difficulty) {
         // set board attributes based on difficulty
         switch (difficulty) {
@@ -40,7 +47,12 @@ public class Minefield {
         intialise();
     }
 
-    // overloaded custom difficulty constructor
+    /**
+     * Overloaded constructor for a Minefield with custom attributes
+     * @param height The height of the Minefield (in Tiles)
+     * @param width The width of the Minefield (in Tiles)
+     * @param mineCount The number of mines to be placed in the Minefield
+     */
     public Minefield(int height, int width, int mineCount) {
         this.height = height;
         this.width = width;
@@ -50,7 +62,9 @@ public class Minefield {
         intialise();
     }
 
-    // method to generate a board of empty tiles
+    /**
+     * Method to generate a field of EmptyTiles with the dimension attributes determining the size
+     */
     private void intialise() {
 
         // define the board
@@ -66,7 +80,11 @@ public class Minefield {
         }
     }
 
-    // method to add mine tiles to intialised board
+    /**
+     * Method to place the MineTiles in the initialised board
+     * @param userX The x-coordinate of the user's first move
+     * @param userY The y-coordinate of the user's first move
+     */
     public void addMines(int userX, int userY) {
 
         // loop depending on number of mines to add
@@ -95,7 +113,9 @@ public class Minefield {
         }
     }
 
-    // method to find neighbour Tiles for each Tile
+    /**
+     * Method to find the neighbouring Tiles of each EmptyTile
+     */
     public void findNeighbours() {
         // loop through field, processing each Tile
         for (int i = 0; i < field.size(); i++) {
@@ -162,7 +182,11 @@ public class Minefield {
         }
     }
 
-    // method to handle clearing of a Tile and/or floodfill clearing via recursion, returns gameOver status
+    /**
+     * Method to handle clearing of a Tile and/or floodfill clearing via recursion
+     * @param t The current Tile instance
+     * @return The gameOver status as a boolean, true if a MineTile is selected, indicating gameOver
+     */
     public boolean clearTile(Tile t) {
         // base case if MineTile is initially selected, gameOver if not flagged
         if (t.getClass() == MineTile.class && !t.isFlagged()) {
@@ -193,7 +217,10 @@ public class Minefield {
         return false;
     }
 
-    // method to check if the field has been successfully cleared
+    /**
+     * Method to check the win condition of the field being successfully cleared
+     * @return false if EmptyTiles remain uncleared, true if all EmptyTiles are cleared
+     */
     public boolean fieldCleared() {
         boolean cleared = true;
         // iterate through each Tile
@@ -210,7 +237,9 @@ public class Minefield {
         return cleared;
     }
 
-    // method to display the current state of the Minefield board
+    /**
+     * Method to display the current state of the Minefield board to the console
+     */
     public void display() {
         System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         // print column numbers
@@ -241,7 +270,10 @@ public class Minefield {
         }
     }
 
-    // overloaded method to display the Minefield board with mine locations
+    /**
+     * Overloaded method to display the Minefield board with all mine locations visible
+     * @param mineFlag The parameter to differentiate the method definition
+     */
     public void display(String mineFlag) {
         System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         // print column numbers

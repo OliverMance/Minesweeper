@@ -1,5 +1,9 @@
 import java.util.List;
 
+/**
+ * The subclass of Tile implementing the logic for an empty Tile (no mine)
+ * @author Oliver Mance
+ */
 public class EmptyTile extends Tile {
 
     // List of neighbour Tiles
@@ -8,13 +12,18 @@ public class EmptyTile extends Tile {
     // the number of mines in the neighbour tiles
     private int adjMineCount;
 
+    /**
+     * The constructor for the EmptyTile object
+     */
     public EmptyTile() {
         this.icon = " ";
         this.visible = false;
         this.flagged = false;
     }
 
-    // method to find the number of MineTiles in the Tile's neighbours
+    /**
+     * Overridden method from superclass, implementing logic to count the number of MineTiles in this Tile's neighbours
+     */
     @Override
     public void countMines() {
         int count = 0;
@@ -34,7 +43,9 @@ public class EmptyTile extends Tile {
         }
     }
 
-    // method to process behaviour if Tile selected
+    /**
+     * Definition of the abstract method, implementing the behaviour if an EmptyTile is selected for clearing
+     */
     @Override
     public void select() {
         // check if tile is already visible
@@ -54,6 +65,10 @@ public class EmptyTile extends Tile {
         }
     }
 
+    /**
+     * Definition of the abstract setter method to set neighbours attribute
+     * @param neighbours The List of neighbour Tiles
+     */
     @Override
     public void setNeighbours(List<Tile> neighbours) { this.neighbours = neighbours; }
 

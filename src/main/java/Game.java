@@ -1,13 +1,19 @@
 import java.util.Scanner;
 
+/**
+ * The Game class contains the logic for a single playthrough of the Minesweeper game
+ * @author Oliver Mance
+ */
 public class Game {
-
     private final Minefield board;
     private final Scanner inp;
     private int currentX, currentY;
     private boolean gameOver;
     private boolean winCondition;
 
+    /**
+     * The constructor for the Game class
+     */
     public Game() {
         this.inp = new Scanner(System.in);
         this.gameOver = false;
@@ -15,7 +21,10 @@ public class Game {
         this.board = createField();
     }
 
-    // method to get difficulty level user input and create the game board/field
+    /**
+     * Method to get difficulty level user input and create the game Minefield
+     * @return the Minefield instance to be used in this game instance
+     */
     public Minefield createField() {
         // loop until valid user input
         while(true) {
@@ -37,7 +46,10 @@ public class Game {
         }
     }
 
-    // method to get user-defined attributes and create a new Minefield
+    /**
+     * Method to get user-defined attributes to create a custom Minefield instance
+     * @return the custom Minefield instance to be used in this game instance
+     */
     private Minefield createCustom() {
         // loop until valid user input
         boolean valid = false;
@@ -74,7 +86,9 @@ public class Game {
         return null;
     }
 
-    // method implementing main game loop
+    /**
+     * Method implementing the functionality for the main game loop
+     */
     public void playGame() {
         // counter for game moves
         int moveCounter = 0;
@@ -118,7 +132,9 @@ public class Game {
         }
     }
 
-    // method to handle the inputs for a user move
+    /**
+     *  Method to handle the user-inputs for a move, ensuring they are valid
+     */
     private void inputMove() {
         // display the board before the user inputs their move
         this.board.display();
@@ -154,7 +170,9 @@ public class Game {
         }
     }
 
-    // method for processing the player move
+    /**
+     * Method for processing the player move, updating the state of the current Minefield
+     */
     private void processMove() {
         // establish whether stepping or flagging
         // loop until valid input is given

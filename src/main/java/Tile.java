@@ -1,25 +1,41 @@
 import java.util.List;
 
+/**
+ * The abstract class to template the differing Tile subclasses with some definitions being implemented
+ * @author Oliver Mance
+ */
 public abstract class Tile {
 
-    // the ASCII character representing the Tile type
+    /**
+     * The String representing the Tile output when displaying the Minefield
+     */
     protected String icon;
 
-    // boolean to determine whether icon should be shown
+    /**
+     * Boolean to determine whether the Tile has been cleared and the icon should be shown
+     */
     protected boolean visible;
 
-    // boolean to determine whether Tile is flagged
+    /**
+     * Boolean to determine whether Tile is flagged
+     */
     protected boolean flagged;
 
-    // method to process behaviour if Tile selected
+    /**
+     * Abstract method to process behaviour if Tile selected to be cleared
+     */
     public abstract void select();
 
-    // method to count number of adjacent Mines
+    /**
+     * Method to count number of adjacent MineTiles, only to be overridden by EmptyTile
+     */
     public void countMines() {
         // to be overridden by EmptyTile
     }
 
-    // method to toggle the flag status of the tile
+    /**
+     * Method to toggle the flag status of the Tile, no need to be overridden in subclasses
+     */
     public void toggleFlag() {
         // check if tile has already been selected
         if (!visible) {
@@ -33,7 +49,9 @@ public abstract class Tile {
         }
     }
 
-    // method to display the tile
+    /**
+     * Method to print the Tile to the console, no need to be overridden in subclasses
+     */
     public void display() {
         // only display icon if visible
         if (this.visible) {
@@ -45,7 +63,10 @@ public abstract class Tile {
         }
     }
 
-    // setter method for adding neighbours
+    /**
+     * Abstract setter method for adding a List of neighbour Tiles, definition only needed in EmptyTile
+     * @param neighbours The List of neighbour Tiles
+     */
     public abstract void setNeighbours(List<Tile> neighbours);
 
     // method to set visible status manually
