@@ -25,7 +25,13 @@ public class EmptyTile extends Tile {
         }
         // set attribute to the number of MineTiles found
         this.adjMineCount = count;
-        this.icon = String.valueOf(this.adjMineCount);
+
+        // if no mines adjacent, empty icon, otherwise the number of adjacent mines
+        if (this.adjMineCount == 0) {
+            this.icon = "_";
+        } else {
+            this.icon = String.valueOf(this.adjMineCount);
+        }
     }
 
     // method to process behaviour if Tile selected
@@ -35,6 +41,7 @@ public class EmptyTile extends Tile {
         if (!this.visible) {
             // check if Tile is flagged
             if (this.flagged) {
+                System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 System.out.println("\nThis tile is flagged! Please remove the flag if you wish to select this tile!");
             } else {
                 // Empty tile scenario
@@ -42,6 +49,7 @@ public class EmptyTile extends Tile {
                 this.visible = true;
             }
         } else {
+            System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("\nTile already cleared!");
         }
     }

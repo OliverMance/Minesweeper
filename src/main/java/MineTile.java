@@ -3,7 +3,7 @@ import java.util.List;
 public class MineTile extends Tile {
 
     public MineTile() {
-        this.icon = "o";
+        this.icon = "X";
         this.visible = false;
         this.flagged = false;
     }
@@ -13,11 +13,13 @@ public class MineTile extends Tile {
     public void select() {
         // check if Tile is flagged
         if (this.flagged) {
+            System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("\nThis tile is flagged! Please remove the flag if you wish to select this tile!");
         } else {
             // GAME OVER scenario
             // set icon to be visible
             this.visible = true;
+            System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("\nYou have selected a Mine!");
         }
     }
@@ -39,6 +41,4 @@ public class MineTile extends Tile {
     public void setNeighbours(List<Tile> neighbours) {
         // do nothing for MineTile
     }
-
-    public boolean isFlagged() { return flagged; }
 }

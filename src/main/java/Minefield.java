@@ -17,16 +17,22 @@ public class Minefield {
                 this.width = 9;
                 this.mineCount = 10;
                 break;
-            case ("intermediate"):
+            case ("medium"):
+                this.height = 15;
+                this.width = 15;
+                this.mineCount = 40;
                 break;
             case ("hard"):
+                this.height = 16;
+                this.width = 30;
+                this.mineCount = 99;
                 break;
             case ("custom"):
                 break;
             default:
                 break;
         }
-
+        // run the local method to initialise the game board
         intialise();
     }
 
@@ -36,6 +42,7 @@ public class Minefield {
         // define the board
         this.field = new ArrayList<List<Tile>>();
 
+        // populate the board with EmptyTile objects
         for (int y = 0; y < this.height; y++) {
             List<Tile> row = new ArrayList<Tile>();
             for(int x = 0; x < this.width; x++) {
@@ -80,8 +87,7 @@ public class Minefield {
         // loop through field, processing each Tile
         for (int i = 0; i < field.size(); i++) {
             for (int j = 0; j < field.get(i).size(); j++) {
-                // only process Tile if non-MineTile
-                // set neighbours if non-mine Tile
+                // set neighbours for Tile only processing Tile if non-MineTile
                 if (field.get(i).get(j).getClass() != MineTile.class) {
                     List<Tile> neighbours = new ArrayList<>();
                     try {
@@ -144,11 +150,17 @@ public class Minefield {
     }
 
     // method to handle clearing of a Tile and/or floodfill clearing via recursion
-    public void clearTile(Tile t) {
-        // base case if Tile is a MineTile, flagged or already cleared
-        if (t.getClass() == MineTile.class || t.isFlagged() || t.isVisible()) {
+    public boolean clearTile(Tile t) {
+        // base case if MineTile is initially selected, gameOver if not flagged
+        if (t.getClass() == MineTile.class && !t.isFlagged()) {
             t.select();
-            return;
+            return true;
+        }
+
+        // base case if Tile is flagged or already cleared, no gameOver
+        if (t.isFlagged() || t.isVisible()) {
+            t.select();
+            return false;
         }
 
         // Reveal the current tile before recursion
@@ -164,6 +176,25 @@ public class Minefield {
                 }
             }
         }
+        // default return
+        return false;
+    }
+
+    // method to check if the field has been successfully cleared
+    public boolean fieldCleared() {
+        boolean cleared = true;
+        // iterate through each Tile
+        for (List<Tile> row : this.field) {
+            for (Tile t : row) {
+                // if the Tile is not visible (not cleared) return false
+                if (t.getClass() == EmptyTile.class && !t.isVisible()) {
+                    cleared = false;
+                    break;
+                }
+            }
+        }
+        // true if no uncleared Tiles are found
+        return cleared;
     }
 
     // method to display the current state of the Minefield board
@@ -172,16 +203,60 @@ public class Minefield {
         // print column numbers
         System.out.print("\n   ");
         for (int i = 0; i < this.width; i++) {
-            System.out.print(i + "  ");
+            // space number appropriately depending on digit
+            if (i < 10) {
+                System.out.print(" " + i + " ");
+            } else {
+                System.out.print(" " + i);
+            }
         }
         System.out.print("\n");
 
         // loop through rows
         for (int i = 0; i < this.field.size(); i++) {
             // print row numbers
-            System.out.print(i + " ");
+            if (i < 10) {
+                System.out.print(i + "  ");
+            } else {
+                System.out.print(i + " ");
+            }
             // display each Tile in row
             for (Tile t : this.field.get(i)) {
+                t.display();
+            }
+            System.out.println("\n");
+        }
+    }
+
+    // overloaded method to display the Minefield board with mine locations
+    public void display(String mineFlag) {
+        System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        // print column numbers
+        System.out.print("\n   ");
+        for (int i = 0; i < this.width; i++) {
+            // space number appropriately depending on digit
+            if (i < 10) {
+                System.out.print(" " + i + " ");
+            } else {
+                System.out.print(" " + i);
+            }
+        }
+        System.out.print("\n");
+
+        // loop through rows
+        for (int i = 0; i < this.field.size(); i++) {
+            // print row numbers
+            if (i < 10) {
+                System.out.print(i + "  ");
+            } else {
+                System.out.print(i + " ");
+            }
+            // display each Tile in row
+            for (Tile t : this.field.get(i)) {
+                // print mine location
+                if (t.getClass() == MineTile.class) {
+                    t.setVisible(true);
+                }
                 t.display();
             }
             System.out.println("\n");

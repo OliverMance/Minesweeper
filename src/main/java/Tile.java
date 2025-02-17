@@ -37,6 +37,9 @@ public abstract class Tile {
     // setter method for adding neighbours
     public abstract void setNeighbours(List<Tile> neighbours);
 
+    // method to set visible status manually
+    public void setVisible(boolean visible) { this.visible = visible; }
+
     // return visibility status of the Tile
     public boolean isVisible() { return visible; }
 
