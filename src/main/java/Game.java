@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Game {
 
-    private Minefield board;
-    private Scanner inp;
+    private final Minefield board;
+    private final Scanner inp;
     private int currentX, currentY;
     private boolean gameOver;
     private boolean winCondition;
@@ -20,11 +20,11 @@ public class Game {
         // loop until valid user input
         while(true) {
             System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.print("\nPlease enter your chosen difficulty (easy, medium, hard or custom): ");
+            System.out.print("\nPlease enter your chosen difficulty (veryEasy, easy, medium, hard or custom): ");
             String ans = inp.nextLine().toLowerCase();
             switch (ans) {
                 // create board if valid preset value
-                case "easy", "medium", "hard":
+                case "veryeasy", "easy", "medium", "hard":
                     return new Minefield(ans);
                 // create board with custom values
                 case "custom":
@@ -119,7 +119,7 @@ public class Game {
 
     // method to handle the inputs for a user move
     public void inputMove() {
-
+        // display the board before the user inputs their move
         this.board.display();
 
         int x, y;

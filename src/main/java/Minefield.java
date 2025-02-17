@@ -13,6 +13,11 @@ public class Minefield {
     public Minefield(String difficulty) {
         // set board attributes based on difficulty
         switch (difficulty) {
+            case ("veryeasy"):
+                this.height = 4;
+                this.width = 4;
+                this.mineCount = 3;
+                break;
             case ("easy"):
                 this.height = 9;
                 this.width = 9;
