@@ -55,7 +55,7 @@ public class Game {
                 // check if dimension inputs are positive and in a sensible range
                 if (height >= 0 && height <= 50 && width >= 0 && width <= 50) {
                     // ensure mine count is positive and less than the total number of tiles
-                    if (numMines >= 0 && numMines < (height * width)) {
+                    if (numMines > 0 && numMines < (height * width)) {
                         return new Minefield(height, width, numMines);
                     } else {
                         System.out.println("Please enter a mine count greater than 0 and less " +
