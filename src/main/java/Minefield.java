@@ -64,14 +64,10 @@ public class Minefield {
             }
             this.field.add(row);
         }
-
-        // add mines to board and find neighbours
-        addMines();
-        findNeighbours();
     }
 
-    // helper method to add mine tiles when initalising board
-    private void addMines() {
+    // method to add mine tiles to intialised board
+    public void addMines(int userX, int userY) {
 
         // loop depending on number of mines to add
         for (int i = 0; i < this.mineCount; i++) {
@@ -83,21 +79,24 @@ public class Minefield {
                 int y = rand.nextInt(this.height);
                 int x = rand.nextInt(this.width);
 
-                // check if tile is already a mine
-                if (this.field.get(y).get(x).getClass() != MineTile.class) {
-                    this.field.get(y).set(x, new MineTile());
+                // check Tile has not been selected as the user's first move
+                if (y != userY && x != userX) {
+                    // check if tile is already a mine
+                    if (this.field.get(y).get(x).getClass() != MineTile.class) {
+                        this.field.get(y).set(x, new MineTile());
 
-                    // use this to debug mine locations
-                    //this.board.get(y).get(x).toggleFlag();
+                        // use this to debug mine locations
+                        //this.board.get(y).get(x).toggleFlag();
 
-                    placed = true;
+                        placed = true;
+                    }
                 }
             }
         }
     }
 
     // method to find neighbour Tiles for each Tile
-    private void findNeighbours() {
+    public void findNeighbours() {
         // loop through field, processing each Tile
         for (int i = 0; i < field.size(); i++) {
             for (int j = 0; j < field.get(i).size(); j++) {

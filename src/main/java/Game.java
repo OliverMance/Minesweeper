@@ -85,13 +85,14 @@ public class Game {
         while (!this.gameOver) {
             // get user input and process their move
             inputMove();
-            processMove();
-
-            // don't allow a fail on the first turn
-            if (moveCounter == 0 && this.gameOver) {
-                System.out.println("\nYou can't lose on your first turn, please select a different Tile!");
-                this.gameOver = false;
+            // place mines after first move to prevent first move loss
+            if (moveCounter == 0) {
+                // add mines to board and find neighbours for each EmptyTile
+                this.board.addMines(this.currentX, this.currentY);
+                this.board.findNeighbours();
             }
+            // process the move input
+            processMove();
             // iterate the move counter
             moveCounter++;
 
