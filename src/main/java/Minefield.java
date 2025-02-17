@@ -51,7 +51,7 @@ public class Minefield {
     }
 
     // method to generate a board of empty tiles
-    public void intialise() {
+    private void intialise() {
 
         // define the board
         this.field = new ArrayList<List<Tile>>();
@@ -97,7 +97,7 @@ public class Minefield {
     }
 
     // method to find neighbour Tiles for each Tile
-    public void findNeighbours() {
+    private void findNeighbours() {
         // loop through field, processing each Tile
         for (int i = 0; i < field.size(); i++) {
             for (int j = 0; j < field.get(i).size(); j++) {

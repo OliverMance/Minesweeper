@@ -25,8 +25,10 @@ public abstract class Tile {
         if (!visible) {
             // toggle flag with bitwise XOR
             this.flagged ^= true;
+            System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("\nTile flag toggled!");
         } else {
+            System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("\nTile already cleared!");
         }
     }

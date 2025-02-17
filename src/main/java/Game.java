@@ -38,7 +38,7 @@ public class Game {
     }
 
     // method to get user-defined attributes and create a new Minefield
-    public Minefield createCustom() {
+    private Minefield createCustom() {
         // loop until valid user input
         boolean valid = false;
         while(!valid) {
@@ -118,7 +118,7 @@ public class Game {
     }
 
     // method to handle the inputs for a user move
-    public void inputMove() {
+    private void inputMove() {
         // display the board before the user inputs their move
         this.board.display();
 
@@ -154,7 +154,7 @@ public class Game {
     }
 
     // method for processing the player move
-    public void processMove() {
+    private void processMove() {
         // establish whether stepping or flagging
         // loop until valid input is given
         boolean valid = false;
