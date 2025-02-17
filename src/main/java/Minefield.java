@@ -9,6 +9,7 @@ public class Minefield {
     private int mineCount;
     private List<List<Tile>> field;
 
+    // fixed difficulty constructor
     public Minefield(String difficulty) {
         // set board attributes based on difficulty
         switch (difficulty) {
@@ -27,11 +28,19 @@ public class Minefield {
                 this.width = 30;
                 this.mineCount = 99;
                 break;
-            case ("custom"):
-                break;
             default:
                 break;
         }
+        // run the local method to initialise the game board
+        intialise();
+    }
+
+    // overloaded custom difficulty constructor
+    public Minefield(int height, int width, int mineCount) {
+        this.height = height;
+        this.width = width;
+        this.mineCount = mineCount;
+
         // run the local method to initialise the game board
         intialise();
     }

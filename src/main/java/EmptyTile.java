@@ -9,7 +9,7 @@ public class EmptyTile extends Tile {
     private int adjMineCount;
 
     public EmptyTile() {
-        this.icon = "e";
+        this.icon = " ";
         this.visible = false;
         this.flagged = false;
     }

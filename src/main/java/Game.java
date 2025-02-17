@@ -12,20 +12,23 @@ public class Game {
         this.inp = new Scanner(System.in);
         this.gameOver = false;
         this.winCondition = false;
-        this.board = new Minefield(getDifficulty());
+        this.board = createField();
     }
 
-    // method to get difficulty level user input
-    public String getDifficulty() {
+    // method to get difficulty level user input and create the game board/field
+    public Minefield createField() {
         // loop until valid user input
         while(true) {
             System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.print("\nPlease enter your chosen difficulty (easy, medium, hard): ");
+            System.out.print("\nPlease enter your chosen difficulty (easy, medium, hard or custom): ");
             String ans = inp.nextLine().toLowerCase();
             switch (ans) {
-                // return string if valid
+                // create board if valid preset value
                 case "easy", "medium", "hard":
-                    return ans;
+                    return new Minefield(ans);
+                // create board with custom values
+                case "custom":
+                    return createCustom();
                 // otherwise prompted to re-enter
                 default:
                     System.out.println("Invalid input, please re-enter!");
@@ -34,8 +37,44 @@ public class Game {
         }
     }
 
-    // TODO method for game loop
-    // method to handle game main loop
+    // method to get user-defined attributes and create a new Minefield
+    public Minefield createCustom() {
+        // loop until valid user input
+        boolean valid = false;
+        while(!valid) {
+            try {
+                // prompt user inputs
+                System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                System.out.print("\nPlease enter the height of the Minefield: ");
+                int height = Integer.parseInt(inp.nextLine());
+                System.out.print("\nPlease enter the width of the Minefield: ");
+                int width = Integer.parseInt(inp.nextLine());
+                System.out.print("\nPlease enter the number of mines in the Minefield: ");
+                int numMines = Integer.parseInt(inp.nextLine());
+
+                // check if dimension inputs are positive and in a sensible range
+                if (height >= 0 && height <= 50 && width >= 0 && width <= 50) {
+                    // ensure mine count is positive and less than the total number of tiles
+                    if (numMines >= 0 && numMines < (height * width)) {
+                        return new Minefield(height, width, numMines);
+                    } else {
+                        System.out.println("Please enter a mine count greater than 0 and less " +
+                                "than (height x width), in this case " + (height * width) + "!");
+                    }
+                } else {
+                    System.out.println("Please enter height and width values between 1-50!");
+                }
+            // handle non-integer inputs
+            } catch (Exception e) {
+                System.out.println("\nInvalid input type, please only use integers!");
+                System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            }
+        }
+        // default return
+        return null;
+    }
+
+    // method implementing main game loop
     public void playGame() {
         // loop player moves until game has reached a finished state
         while (!this.gameOver) {
