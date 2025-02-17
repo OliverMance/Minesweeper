@@ -54,19 +54,6 @@ public class EmptyTile extends Tile {
         }
     }
 
-    // method to display the tile
-    @Override
-    public void display() {
-        // only display icon if visible
-        if (this.visible) {
-            System.out.print("[" + this.icon + "]");
-        } else if (this.flagged) {
-            System.out.print("[f]");
-        } else {
-            System.out.print("[ ]");
-        }
-    }
-
     @Override
     public void setNeighbours(List<Tile> neighbours) { this.neighbours = neighbours; }
 

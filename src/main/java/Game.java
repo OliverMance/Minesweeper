@@ -76,11 +76,21 @@ public class Game {
 
     // method implementing main game loop
     public void playGame() {
+        // counter for game moves
+        int moveCounter = 0;
         // loop player moves until game has reached a finished state
         while (!this.gameOver) {
             // get user input and process their move
             inputMove();
             processMove();
+
+            // don't allow a fail on the first turn
+            if (moveCounter == 0 && this.gameOver) {
+                System.out.println("\nYou can't lose on your first turn, please select a different Tile!");
+                this.gameOver = false;
+            }
+            // iterate the move counter
+            moveCounter++;
 
             // check for win condition
             if (board.fieldCleared()) {
@@ -93,7 +103,7 @@ public class Game {
         if (this.winCondition) {
             this.board.display();
             System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.println("\nCongratulations, you won!");
+            System.out.println("\nCongratulations, you won! It took you " + moveCounter + " turns.");
         } else {
             this.board.display("L");
             System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");

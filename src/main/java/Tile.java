@@ -32,7 +32,16 @@ public abstract class Tile {
     }
 
     // method to display the tile
-    public abstract void display();
+    public void display() {
+        // only display icon if visible
+        if (this.visible) {
+            System.out.print("[" + this.icon + "]");
+        } else if (this.flagged) {
+            System.out.print("[f]");
+        } else {
+            System.out.print("[ ]");
+        }
+    }
 
     // setter method for adding neighbours
     public abstract void setNeighbours(List<Tile> neighbours);
