@@ -14,8 +14,8 @@ public class Minefield {
         // set board attributes based on difficulty
         switch (difficulty) {
             case ("veryeasy"):
-                this.height = 4;
-                this.width = 4;
+                this.height = 5;
+                this.width = 5;
                 this.mineCount = 3;
                 break;
             case ("easy"):
@@ -163,7 +163,7 @@ public class Minefield {
         }
     }
 
-    // method to handle clearing of a Tile and/or floodfill clearing via recursion
+    // method to handle clearing of a Tile and/or floodfill clearing via recursion, returns gameOver status
     public boolean clearTile(Tile t) {
         // base case if MineTile is initially selected, gameOver if not flagged
         if (t.getClass() == MineTile.class && !t.isFlagged()) {
