@@ -52,8 +52,7 @@ public class Game {
      */
     private Minefield createCustom() {
         // loop until valid user input
-        boolean valid = false;
-        while(!valid) {
+        while(true) {
             try {
                 // prompt user inputs
                 System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -82,8 +81,6 @@ public class Game {
                 System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
         }
-        // default return
-        return null;
     }
 
     /**
@@ -107,7 +104,6 @@ public class Game {
             }
             // process the move input
             processMove();
-            // iterate the move counter
             moveCounter++;
 
             // check for win condition
@@ -125,6 +121,7 @@ public class Game {
             this.board.display("W");
             System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("\nCongratulations, you won! It took you " + moveCounter + " turn(s) and " + ((endTime - startTime)/1000) + " second(s).");
+        // otherwise display loss message
         } else {
             this.board.display("L");
             System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -181,11 +178,10 @@ public class Game {
             System.out.print("\nDo you want to step on this tile or flag it? (s/f): ");
             String ans = inp.nextLine().toLowerCase();
 
-            // perform action based on input
             switch (ans) {
                 // case for 'stepping' on a Tile
                 case ("s"):
-                    // update gameOver state based on returned value (true if 'step' on MineTile)
+                    // update gameOver state based on returned value (true if 'stepped' on MineTile)
                     this.gameOver = this.board.clearTile(this.board.getField().get(this.currentY).get(this.currentX));
                     valid = true;
                     break;

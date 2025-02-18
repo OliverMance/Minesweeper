@@ -63,7 +63,7 @@ public class EmptyTile extends Tile {
             System.out.println("\nTile already cleared!");
         }
     }
-    
+
     public void setNeighbours(List<Tile> neighbours) { this.neighbours = neighbours; }
 
     public List<Tile> getNeighbours() { return neighbours; }

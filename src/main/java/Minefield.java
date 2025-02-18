@@ -204,7 +204,7 @@ public class Minefield {
             return false;
         }
 
-        // Reveal the current tile before recursion
+        // Reveal the current tile before recursion (prevents infinite recursion vs after)
         t.select();
 
         // can only possibly be an EmptyTile at this point, but perform a check to rule out ClassCastException

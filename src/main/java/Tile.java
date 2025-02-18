@@ -28,7 +28,7 @@ public abstract class Tile {
      * Method to toggle the flag status of the Tile, no need to be overridden in subclasses
      */
     public void toggleFlag() {
-        // check if tile has already been selected
+        // check if tile has already been cleared
         if (!visible) {
             // toggle flag with bitwise XOR
             this.flagged ^= true;
