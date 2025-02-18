@@ -120,8 +120,8 @@ public class Minefield {
         // loop through field, processing each Tile
         for (int i = 0; i < field.size(); i++) {
             for (int j = 0; j < field.get(i).size(); j++) {
-                // set neighbours for Tile only processing Tile if non-MineTile
-                if (field.get(i).get(j).getClass() != MineTile.class) {
+                // set neighbours for EmptyTile instances only
+                if (field.get(i).get(j).getClass() == EmptyTile.class) {
                     List<Tile> neighbours = new ArrayList<>();
                     try {
                         // add tiles in all adjacent directions
@@ -168,14 +168,12 @@ public class Minefield {
                             neighbours.add(field.get(i).get(j + 1));
                         }
 
-                        // only call following methods if Tile is confirmed to be an EmptyTile instance
-                        if (field.get(i).get(j).getClass() == EmptyTile.class) {
-                            // set the neighbours list for the Tile
-                            EmptyTile currentTile = (EmptyTile) field.get(i).get(j);
-                            currentTile.setNeighbours(neighbours);
-                            // count the number of mines adjacent to the Tile
-                            currentTile.countMines();
-                        }
+                        // set the neighbours list for the Tile
+                        EmptyTile currentTile = (EmptyTile) field.get(i).get(j);
+                        currentTile.setNeighbours(neighbours);
+                        // count the number of mines adjacent to the Tile
+                        currentTile.countMines();
+
                         // handle non-index errors
                     } catch (Exception e) {
                         System.out.println("Encountered error: " + e.getMessage());
