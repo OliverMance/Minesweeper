@@ -182,12 +182,12 @@ public class Game {
                 // case for 'stepping' on a Tile
                 case ("s"):
                     // update gameOver state based on returned value (true if 'stepped' on MineTile)
-                    this.gameOver = this.board.clearTile(this.board.getField().get(this.currentY).get(this.currentX));
+                    this.gameOver = this.board.clearTile(this.currentY, this.currentX);
                     valid = true;
                     break;
                 // case for 'flagging' a Tile
                 case ("f"):
-                    this.board.getField().get(this.currentY).get(this.currentX).toggleFlag();
+                    this.board.flagTile(this.currentY, this.currentX);
                     valid = true;
                     break;
                 // case for invalid input (repeats prompt)

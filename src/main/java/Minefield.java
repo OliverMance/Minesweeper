@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * The Minefield class contains the game board structure and contains methods for updating and checking its state
+ * The Minefield class contains the game field structure and contains methods for updating and checking its state
  * @author Oliver Mance
  */
 public class Minefield {
@@ -70,7 +70,7 @@ public class Minefield {
         // define the board
         this.field = new ArrayList<List<Tile>>();
 
-        // populate the board with EmptyTile objects
+        // populate the board with EmptyTile instances
         for (int y = 0; y < this.height; y++) {
             List<Tile> row = new ArrayList<Tile>();
             for(int x = 0; x < this.width; x++) {
@@ -115,6 +115,7 @@ public class Minefield {
 
     /**
      * Method to find the neighbouring Tiles of each EmptyTile
+     * - (MineTiles are disregarded as the number of neighbours is irrelevant and would waste memory and processing time)
      */
     public void findNeighbours() {
         // loop through field, processing each Tile
@@ -185,11 +186,31 @@ public class Minefield {
     }
 
     /**
+     * Method to toggle a flag on a given Tile
+     * @param y The y-coordinate of the Tile
+     * @param x The x-coordinate of the Tile
+     */
+    public void flagTile(int y, int x) {
+        this.field.get(y).get(x).toggleFlag();
+    }
+
+    /**
+     * Method to fetch the selected Tile before passing it to recursive clearing method
+     * @param y The y-coordinate of the Tile
+     * @param x The x-coordinate of the Tile
+     * @return The boolean status of GameOver
+     */
+    public boolean clearTile(int y, int x) {
+        Tile t = this.field.get(y).get(x);
+        return recursiveClear(t);
+    }
+
+    /**
      * Method to handle clearing of a Tile and/or floodfill clearing via recursion
      * @param t The current Tile instance
      * @return The gameOver status as a boolean, true if a MineTile is selected, indicating gameOver
      */
-    public boolean clearTile(Tile t) {
+    private boolean recursiveClear(Tile t) {
         // base case if MineTile is initially selected, gameOver if not flagged
         if (t.getClass() == MineTile.class && !t.isFlagged()) {
             t.select();
@@ -213,7 +234,7 @@ public class Minefield {
                     // only process Tile if not already cleared (Check visibility before recursion)
                     if (!n.isVisible()) {
                         // check/clear adjacent tile and its neighbours via recursion
-                        clearTile(n);
+                        recursiveClear(n);
                     }
                 }
             }
@@ -224,7 +245,7 @@ public class Minefield {
 
     /**
      * Method to check the win condition of the field being successfully cleared
-     * @return false if EmptyTiles remain uncleared, true if all EmptyTiles are cleared
+     * @return false if EmptyTiles remain uncleared, true if all EmptyTiles are cleared (visible)
      */
     public boolean fieldCleared() {
         boolean cleared = true;
