@@ -168,10 +168,14 @@ public class Minefield {
                             neighbours.add(field.get(i).get(j + 1));
                         }
 
-                        // set the neighbours list for the Tile
-                        field.get(i).get(j).setNeighbours(neighbours);
-                        // count the number of mines adjacent to the Tile
-                        field.get(i).get(j).countMines();
+                        // only call following methods if Tile is confirmed to be an EmptyTile instance
+                        if (field.get(i).get(j).getClass() == EmptyTile.class) {
+                            // set the neighbours list for the Tile
+                            EmptyTile currentTile = (EmptyTile) field.get(i).get(j);
+                            currentTile.setNeighbours(neighbours);
+                            // count the number of mines adjacent to the Tile
+                            currentTile.countMines();
+                        }
                         // handle non-index errors
                     } catch (Exception e) {
                         System.out.println("Encountered error: " + e.getMessage());
@@ -203,13 +207,16 @@ public class Minefield {
         // Reveal the current tile before recursion
         t.select();
 
-        // only search neighbours if Tile has no adjacent mines
-        if (((EmptyTile) t).getAdjMineCount() == 0) {
-            for (Tile n : ((EmptyTile) t).getNeighbours()) {
-                // only process Tile if not already cleared (Check visibility before recursion)
-                if (!n.isVisible()) {
-                    // check/clear adjacent tile and its neighbours via recursion
-                    clearTile(n);
+        // can only possibly be an EmptyTile at this point, but perform a check to rule out ClassCastException
+        if (t.getClass() == EmptyTile.class) {
+            // only search neighbours if Tile has no adjacent mines
+            if (((EmptyTile) t).getAdjMineCount() == 0) {
+                for (Tile n : ((EmptyTile) t).getNeighbours()) {
+                    // only process Tile if not already cleared (Check visibility before recursion)
+                    if (!n.isVisible()) {
+                        // check/clear adjacent tile and its neighbours via recursion
+                        clearTile(n);
+                    }
                 }
             }
         }
@@ -272,7 +279,7 @@ public class Minefield {
 
     /**
      * Overloaded method to display the Minefield board with all mine locations visible
-     * @param mineFlag The parameter to differentiate the method definition
+     * @param mineFlag The parameter to determine how the mine icons will be set
      */
     public void display(String mineFlag) {
         System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");

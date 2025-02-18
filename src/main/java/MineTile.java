@@ -1,5 +1,3 @@
-import java.util.List;
-
 /**
  * The subclass of Tile implementing the logic for a Tile containing a mine
  * @author Oliver Mance
@@ -31,15 +29,6 @@ public class MineTile extends Tile {
             System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("\nYou have selected a Mine!");
         }
-    }
-
-    /**
-     * Empty override of the abstract method from superclass, empty as MineTile does not have a neighbours attribute but could be called when iterating through a Minefield
-     * @param neighbours The List of neighbour Tiles
-     */
-    @Override
-    public void setNeighbours(List<Tile> neighbours) {
-        // do nothing for MineTile
     }
 
     public void setIcon(String icon) { this.icon = icon; }

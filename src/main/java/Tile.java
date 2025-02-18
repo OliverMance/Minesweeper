@@ -1,5 +1,3 @@
-import java.util.List;
-
 /**
  * The abstract class to template the differing Tile subclasses with some definitions being implemented
  * @author Oliver Mance
@@ -25,13 +23,6 @@ public abstract class Tile {
      * Abstract method to process behaviour if Tile selected to be cleared
      */
     public abstract void select();
-
-    /**
-     * Method to count number of adjacent MineTiles, only to be overridden by EmptyTile
-     */
-    public void countMines() {
-        // to be overridden by EmptyTile
-    }
 
     /**
      * Method to toggle the flag status of the Tile, no need to be overridden in subclasses
@@ -62,12 +53,6 @@ public abstract class Tile {
             System.out.print("[ ]");
         }
     }
-
-    /**
-     * Abstract setter method for adding a List of neighbour Tiles, definition only needed in EmptyTile
-     * @param neighbours The List of neighbour Tiles
-     */
-    public abstract void setNeighbours(List<Tile> neighbours);
 
     // method to set visible status manually
     public void setVisible(boolean visible) { this.visible = visible; }

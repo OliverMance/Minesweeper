@@ -22,9 +22,8 @@ public class EmptyTile extends Tile {
     }
 
     /**
-     * Overridden method from superclass, implementing logic to count the number of MineTiles in this Tile's neighbours
+     * Method implementing logic to count the number of MineTiles in this instance's neighbours
      */
-    @Override
     public void countMines() {
         int count = 0;
         for (Tile n : this.neighbours) {
@@ -64,12 +63,7 @@ public class EmptyTile extends Tile {
             System.out.println("\nTile already cleared!");
         }
     }
-
-    /**
-     * Definition of the abstract setter method to set neighbours attribute
-     * @param neighbours The List of neighbour Tiles
-     */
-    @Override
+    
     public void setNeighbours(List<Tile> neighbours) { this.neighbours = neighbours; }
 
     public List<Tile> getNeighbours() { return neighbours; }
