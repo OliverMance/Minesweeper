@@ -38,7 +38,7 @@ public class Minefield {
             case ("hard"):
                 this.height = 16;
                 this.width = 30;
-                this.mineCount = 99;
+                this.mineCount = 80;
                 break;
             default:
                 break;
@@ -68,11 +68,11 @@ public class Minefield {
     private void intialise() {
 
         // define the board
-        this.field = new ArrayList<List<Tile>>();
+        this.field = new ArrayList<>();
 
         // populate the board with EmptyTile instances
         for (int y = 0; y < this.height; y++) {
-            List<Tile> row = new ArrayList<Tile>();
+            List<Tile> row = new ArrayList<>();
             for(int x = 0; x < this.width; x++) {
                 row.add(new EmptyTile());
             }
@@ -341,6 +341,4 @@ public class Minefield {
     public int getHeight() { return height; }
 
     public int getWidth() { return width; }
-
-    public List<List<Tile>> getField() { return field; }
 }
