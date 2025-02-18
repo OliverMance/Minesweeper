@@ -298,8 +298,12 @@ public class Minefield {
             }
             // display each Tile in row
             for (Tile t : this.field.get(i)) {
-                // print mine location
+                // set mines to be visible
                 if (t.getClass() == MineTile.class) {
+                    // if win condition, print mines with different icon
+                    if (mineFlag.equals("W")) {
+                        ((MineTile) t).setIcon("+");
+                    }
                     t.setVisible(true);
                 }
                 t.display();

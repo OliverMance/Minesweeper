@@ -10,7 +10,7 @@ public class MineTile extends Tile {
      * The constructor for the MineTile object
      */
     public MineTile() {
-        this.icon = "X";
+        this.icon = "*";
         this.visible = false;
         this.flagged = false;
     }
@@ -41,4 +41,6 @@ public class MineTile extends Tile {
     public void setNeighbours(List<Tile> neighbours) {
         // do nothing for MineTile
     }
+
+    public void setIcon(String icon) { this.icon = icon; }
 }

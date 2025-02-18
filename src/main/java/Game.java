@@ -122,7 +122,7 @@ public class Game {
 
         // if game won, display message
         if (this.winCondition) {
-            this.board.display();
+            this.board.display("W");
             System.out.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("\nCongratulations, you won! It took you " + moveCounter + " turn(s) and " + ((endTime - startTime)/1000) + " second(s).");
         } else {
